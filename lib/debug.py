@@ -1,5 +1,4 @@
 from lib.models import Author
-from lib.db import get_db_connection,get_db_cursor
 from lib.models.magazine import Magazine
 #test save method for Author model
 # author_001=Author(name="John Doe")
@@ -24,9 +23,15 @@ from lib.models.magazine import Magazine
 # author.delete()
 
 
-magazine_001=Magazine("Tech Today", "Technology")
-magazine_001.save()
+# magazine_001=Magazine("Tech Today", "Technology")
+# magazine_001.save()
 #test create_magazine method for Magazine model
-Magazine.create_magazine("Health Weekly", "Health")
+# Magazine.create_magazine("Health Weekly", "Health")
+travel=Magazine.create_magazine("Travel Explorer", "Travel")
+# travel.update(name="Travel Adventures", category="Adventure")
+print(travel)
+travel.update(name="The Standard", category="Adventure")
+# travel.delete_magazine()  
+
 
 

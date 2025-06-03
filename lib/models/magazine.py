@@ -1,4 +1,4 @@
-from lib.db import get_db_connection, get_db_cursor
+from lib.db import get_db_connection
 class Magazine():
     all = {}
     def __init__(self,name,category):
@@ -53,7 +53,44 @@ class Magazine():
         magazine = cls(name, category)
         magazine.save()
         return magazine
-   
+    def delete_magazine(self):
+        """Delete the magazine from the database."""
+        if self.id is None:
+            raise ValueError("Cannot delete a magazine that has not been saved.")
+        conn = get_db_connection()
+        try:
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM magazines WHERE id = ?", (self.id,))
+            conn.commit()
+            del Magazine.all[self.id]
+        finally:
+            cursor.close()
+            conn.close()
+    def update(self, name=None, category=None):
+        """Update the magazine's name and/or category."""
+        if self.id is None:
+            raise ValueError("Cannot update a magazine that has not been saved.")
+        if name is not None:
+            self.name = name
+        if category is not None:
+            self.category = category
+        conn=get_db_connection()
+        
+        try:
+            cursor = conn.cursor()
+            cursor.execute("UPDATE magazines SET name = ?, category = ? WHERE id = ?", (self.name, self.category, self.id))
+            conn.commit()
+            Magazine.all[self.id] = self
+        finally:
+            cursor.close()
+            conn.close()
+
+
+
+
+
+
+
 
 
 

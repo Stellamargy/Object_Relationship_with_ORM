@@ -1,4 +1,4 @@
-from lib.db import get_db_connection, get_db_cursor
+from lib.db import get_db_connection
 
 class Author():
     all={}
