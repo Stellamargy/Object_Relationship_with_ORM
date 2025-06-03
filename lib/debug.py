@@ -33,8 +33,10 @@ from lib.models.magazine import Magazine
 # travel.update(name="The Standard", category="Adventure")
 # # travel.delete_magazine()  
 # travel.delete_magazine()
-magazines=Magazine.get_all_magazines()
-print(magazines)
+# magazines=Magazine.get_all_magazines()
+# print(magazines)
+magazine=Magazine.find_magazine_by_id(1)
+print(magazine)
 
 
 

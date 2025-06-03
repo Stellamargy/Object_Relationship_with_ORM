@@ -85,7 +85,7 @@ class Magazine():
             cursor.close()
             conn.close()
     @classmethod
-    def get_magazine_instnce(cls,row):
+    def get_magazine_instance(cls,row):
         """Create a magazine instance from a database row."""
         magazine=cls.all.get(row["id"])
         if magazine is None:
@@ -104,10 +104,27 @@ class Magazine():
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM magazines")
             rows = cursor.fetchall()
-            return [cls.get_magazine_instnce(row) for row in rows]
+            return [cls.get_magazine_instance(row) for row in rows]
         finally:
             cursor.close()
             conn.close()
+    @classmethod
+    def find_magazine_by_id(cls, id):
+        """Find a magazine by its ID."""
+        if id in cls.all:
+            return cls.all[id]
+        conn = get_db_connection()
+        try:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM magazines WHERE id = ?", (id,))
+            row = cursor.fetchone()
+            if row is None:
+                return None
+            return cls.get_magazine_instance(row)
+        finally:
+            cursor.close()
+            conn.close()
+
         
         
 
