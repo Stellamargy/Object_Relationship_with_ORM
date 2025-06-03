@@ -1,34 +1,25 @@
 from lib.models import Author
 from lib.db import get_db_connection,get_db_cursor
-# import os
+#test save method for Author model
+# author_001=Author(name="John Doe")
+# author_001.save()
+#test create_author method for Author model
+# Author.create_author("Stella Margy")
+#test get_all_authors method for Author model
+# authors=Author.get_all_authors()
+# print(authors)
+#test get_author_by_id method for Author model
+# author=Author.find_author_by_id(1)
+# print(author)
+#test get_author_by_name method for Author model
+author=Author.find_author_by_name("Esther Oloo")
+# print(author)
+#update author name
+
+author.update("Esther Oloo")
+author.delete()
+
+#test delete method for Author model
+# author.delete()
 
 
-
-    
-#Create a function to run a SQL file to set up the database schema
-# def set_db_schema(schema):
-#     """db connection and run a SQL file to set up the database schema."""
-#     conn=get_db_connection()  
-#     cursor=get_db_cursor()  
-   
-#     base_dir = os.path.dirname(__file__)
-#     sql_file_path = os.path.join(base_dir, schema)
-
-#     with open(sql_file_path, 'r') as f:
-#         sql_script = f.read()
-
-#     cursor.executescript(sql_script)
-#     conn.commit()
-#     conn.close()
-
-
-
-
-
-# # Author.create_author(name="Stella Margy")
-# #Test save method in Author Class
-# stella = Author(name="Stella Margy")
-# # stella.save()
-# stella.delete
-# #Test create author method
-# # Author.create_author("Moffat Oloo")
