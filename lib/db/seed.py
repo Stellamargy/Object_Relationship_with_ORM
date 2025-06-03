@@ -65,40 +65,35 @@ articles = [
     (9, "Vegan Delights", 4, 4),
     (10, "Investing in 2024", 5, 5),
 ]
+#  Function to seed data into the database
+def seed_data(table_name, data, query):
+    """seeding the articles, authors, and magazines tables."""
+    conn = get_db_connection()
+    try:
+        cursor = conn.cursor()
+        cursor.executemany(query, data)
+        conn.commit()
+    finally:
+        cursor.close()
+        conn.close()
+#set db schema and seed data
+set_db_schema('schema.sql')
+seed_data(
+        "authors",
+        authors,
+        "INSERT OR IGNORE INTO authors (id, name) VALUES (?, ?);"
+    )
+seed_data(
+        "magazines",
+        magazines,
+        "INSERT OR IGNORE INTO magazines (id, name, category) VALUES (?, ?, ?);"
+    )
+seed_data(
+        "articles",
+        articles,
+        "INSERT OR IGNORE INTO articles (id, title, author_id, magazine_id) VALUES (?, ?, ?, ?);"
+    )
 
-# def seed_data(table_name, data, query):
-#     """seeding the articles, authors, and magazines tables."""
-#     conn = get_db_connection()
-#     try:
-#         cursor = conn.cursor()
-#         cursor.executemany(query, data)
-#         conn.commit()
-#     finally:
-#         cursor.close()
 
-# def seed_authors():
-#     seed_data(
-#         "authors",
-#         authors,
-#         "INSERT OR IGNORE INTO authors (id, name) VALUES (?, ?);"
-#     )
 
-# def seed_magazines():
-#     seed_data(
-#         "magazines",
-#         magazines,
-#         "INSERT OR IGNORE INTO magazines (id, name, category) VALUES (?, ?, ?);"
-#     )
 
-# def seed_articles():
-#     seed_data(
-#         "articles",
-#         articles,
-#         "INSERT OR IGNORE INTO articles (id, title, author_id, magazine_id) VALUES (?, ?, ?, ?);"
-#     )
-
-# #create the database schema and seed the data
-# run_sql_file('schema.sql')
-# seed_authors()
-# seed_magazines()
-# seed_articles()
