@@ -1,5 +1,6 @@
 from lib.models import Author
 from lib.db import get_db_connection,get_db_cursor
+from lib.models.magazine import Magazine
 #test save method for Author model
 # author_001=Author(name="John Doe")
 # author_001.save()
@@ -12,14 +13,18 @@ from lib.db import get_db_connection,get_db_cursor
 # author=Author.find_author_by_id(1)
 # print(author)
 #test get_author_by_name method for Author model
-author=Author.find_author_by_name("Esther Oloo")
+# author=Author.find_author_by_name("Esther Oloo")
 # print(author)
 #update author name
 
-author.update("Esther Oloo")
-author.delete()
+# author.update("Esther Oloo")
+# author.delete()
 
 #test delete method for Author model
 # author.delete()
+
+
+# magazine_001=Magazine("Tech Today", "Technology")
+# magazine_001._id = 1
 
 
