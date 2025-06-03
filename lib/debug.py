@@ -24,7 +24,9 @@ from lib.models.magazine import Magazine
 # author.delete()
 
 
-# magazine_001=Magazine("Tech Today", "Technology")
-# magazine_001._id = 1
+magazine_001=Magazine("Tech Today", "Technology")
+magazine_001.save()
+#test create_magazine method for Magazine model
+Magazine.create_magazine("Health Weekly", "Health")
 
 
