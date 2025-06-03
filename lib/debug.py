@@ -27,11 +27,15 @@ from lib.models.magazine import Magazine
 # magazine_001.save()
 #test create_magazine method for Magazine model
 # Magazine.create_magazine("Health Weekly", "Health")
-travel=Magazine.create_magazine("Travel Explorer", "Travel")
-# travel.update(name="Travel Adventures", category="Adventure")
-print(travel)
-travel.update(name="The Standard", category="Adventure")
-# travel.delete_magazine()  
+# travel=Magazine.create_magazine("Travel Explorer", "Travel")
+# # travel.update(name="Travel Adventures", category="Adventure")
+# print(travel)
+# travel.update(name="The Standard", category="Adventure")
+# # travel.delete_magazine()  
+# travel.delete_magazine()
+magazines=Magazine.get_all_magazines()
+print(magazines)
+
 
 
 
