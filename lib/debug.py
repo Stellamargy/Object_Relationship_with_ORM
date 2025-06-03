@@ -1,5 +1,6 @@
 from lib.models import Author
 from lib.models.magazine import Magazine
+from lib.models.article import Article
 #test save method for Author model
 # author_001=Author(name="John Doe")
 # author_001.save()
@@ -37,9 +38,12 @@ from lib.models.magazine import Magazine
 # print(magazines)
 # magazine=Magazine.find_magazine_by_id(1)
 # print(magazine)
-magazine2=Magazine.find_magazine_by_name("Tech Today")
-print(magazine2)
+# magazine2=Magazine.find_magazine_by_name("Tech Today")
+# print(magazine2)
 
-
+article1=Article("The Future of AI", 1, 1)
+article1.save()
+article2=Article("Climate Change and You", 100, 1111)
+article2.save()  
 
 
