@@ -35,8 +35,10 @@ from lib.models.magazine import Magazine
 # travel.delete_magazine()
 # magazines=Magazine.get_all_magazines()
 # print(magazines)
-magazine=Magazine.find_magazine_by_id(1)
-print(magazine)
+# magazine=Magazine.find_magazine_by_id(1)
+# print(magazine)
+magazine2=Magazine.find_magazine_by_name("Tech Today")
+print(magazine2)
 
 
 

@@ -119,7 +119,21 @@ class Magazine():
             cursor.execute("SELECT * FROM magazines WHERE id = ?", (id,))
             row = cursor.fetchone()
             if row is None:
-                return None
+                return "No magazine found with that ID."
+            return cls.get_magazine_instance(row)
+        finally:
+            cursor.close()
+            conn.close()
+    @classmethod
+    def find_magazine_by_name(cls, name):
+        """Find a magazine by its name."""
+        conn = get_db_connection()
+        try:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM magazines WHERE name = ?", (name,))
+            row = cursor.fetchone()
+            if row is None:
+                return "No magazine found with that name."
             return cls.get_magazine_instance(row)
         finally:
             cursor.close()
