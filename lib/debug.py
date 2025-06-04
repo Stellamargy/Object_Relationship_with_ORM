@@ -41,9 +41,14 @@ from lib.models.article import Article
 # magazine2=Magazine.find_magazine_by_name("Tech Today")
 # print(magazine2)
 
-article1=Article("The Future of AI", 1, 1)
-article1.save()
-article2=Article("Climate Change and You", 100, 1111)
-article2.save()  
+# article1=Article("The Future of AI", 1, 1)
+# article1.save()
+# # article2=Article("Climate Change and You", 100, 1111)
+# # article2.save()
+# article3=Article.create_article("The Rise of Quantum Computing", 1, 1)
+article1=Article.find_article_by_id(1)
+print(article1)
+article1.update_article(title="Sexy Fox", author_id=1, magazine_id=1)
+article1.delete()
 
 

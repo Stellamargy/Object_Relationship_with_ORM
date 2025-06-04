@@ -116,7 +116,8 @@ class Author():
             cursor = conn.cursor()
             cursor.execute("DELETE FROM authors WHERE id = ?", (self.id,))
             conn.commit()
-            del Author.all[self.id]  # Remove from cache
+            del Author.all[self.id] 
+            self._id= None
         finally:
             cursor.close()
             conn.close()

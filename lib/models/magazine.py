@@ -63,6 +63,7 @@ class Magazine():
             cursor.execute("DELETE FROM magazines WHERE id = ?", (self.id,))
             conn.commit()
             del Magazine.all[self.id]
+            self._id = None
         finally:
             cursor.close()
             conn.close()
@@ -138,6 +139,7 @@ class Magazine():
         finally:
             cursor.close()
             conn.close()
+
 
         
         

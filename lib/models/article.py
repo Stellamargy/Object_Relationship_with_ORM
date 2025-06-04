@@ -72,6 +72,101 @@ class Article:
         finally:
             cursor.close()
             conn.close()
+    def update_article(self, title, author_id, magazine_id):
+        """Update the article in the database."""
+        if self.id is None:
+            raise ValueError("Cannot update an article that has not been saved.")
+        conn = get_db_connection()
+        try:
+            cursor = conn.cursor()
+            self.validate_foreign_keys(self.author_id, self.magazine_id)
+            cursor.execute("UPDATE articles SET title = ?, author_id = ?, magazine_id = ? WHERE id = ?", 
+                           (title, author_id, magazine_id, self.id))
+            conn.commit()
+            Article.all[self.id] = self
+        finally:
+            cursor.close()
+            conn.close()
+    def delete(self):
+        """Delete the article from the database."""
+        if self.id is None:
+            raise ValueError("Cannot delete an article that has not been saved.")
+        conn = get_db_connection()
+        try:
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM articles WHERE id = ?", (self.id,))
+            conn.commit()
+            del Article.all[self.id]
+            self._id = None
+        finally:
+            cursor.close()
+            conn.close()
+
+
+    @classmethod
+    def create_article(cls, title, author_id, magazine_id):
+        """Create a new article and save it to the database."""
+        article = cls(title, author_id, magazine_id)
+        article.save()
+        return article
+    @classmethod
+    def get_article_instance(cls,row):
+        """Create an article instance from a database row."""
+        article = cls.all.get(row["id"])
+        if article is None:
+            article = cls(row["title"], row["author_id"], row["magazine_id"])
+            article._id = row["id"]
+            cls.all[article.id] = article
+        else:
+            article.title = row["title"]
+            article.author_id = row["author_id"]
+            article.magazine_id = row["magazine_id"]
+            article._id = row["id"]
+        return article
+    @classmethod
+    def get_all_articles(cls):
+        """Retrieve all articles from the database."""
+        conn = get_db_connection()
+        try:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM articles")
+            rows = cursor.fetchall()
+            articles = [cls.get_article_instance(row) for row in rows]
+            return articles
+        finally:
+            cursor.close()
+            conn.close()
+
+    @classmethod
+    def find_article_by_id(cls, article_id):
+        """Find an article by its ID."""
+        conn = get_db_connection()
+        try:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM articles WHERE id = ?", (article_id,))
+            row = cursor.fetchone()
+            if row is None:
+                return "No article found with that ID."
+            return cls.get_article_instance(row)
+        finally:
+            cursor.close()
+            conn.close()  
+    @classmethod
+    def find_article_by_title(cls,title):
+        """Find an article by its title."""
+        conn = get_db_connection()
+        try:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM articles WHERE title = ?", (title,))
+            row = cursor.fetchone()
+            if row is None:
+                return "No article found with that title."
+            return cls.get_article_instance(row)
+        finally:
+            cursor.close()
+            conn.close()
+
+    
     
 
     
